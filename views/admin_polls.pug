@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	h2 polls
+	p administrative list of polls
+	ul
+		li
+			a(href="/admin/polls/edit/:id") Edit
+		li
+			a(href="/admin/polls/toggle/:id") Toggle
+		li
+			a(href="/admin/polls/new") Create

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	h2  Administrative Login
+	p This area of the website requires administrative access. Please use the form below to log in.!{loginErr}
+		form(action="/admin/login", method="post")
+			section.form-group.row
+				label(for="username") Username:
+				input.form-control(type="text", name="username", required)
+			section.form-group.row
+				label(for="password") Password:
+				input.form-control(type="password", name="password", required)
+			button.btn.btn-primary(type="submit") Log In

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h2 polls edit :id
+	p administrative form to edit a poll
+		form(action="/admin/polls/edit/:id", method="post")
+			button(type="submit") Continue
+	ul
+		li
+			a(href="/admin/polls") Cancel

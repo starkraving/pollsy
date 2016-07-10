@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h2  vote :id
+	p public form to vote on a poll
+		form(action="/polls/vote/:id", method="post")
+			button(type="submit") Vote
+	ul
+		li
+			a(href="/polls") Cancel

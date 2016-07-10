@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h2 
+	p public list of polls
+	ul
+		li
+			a(href="/polls/results/:id") View Results
+		li
+			a(href="/polls/vote/:id") Vote

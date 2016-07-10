@@ -1,0 +1,37 @@
+{
+  "name": "fcc-pollsy",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp Voting App",
+  "main": "app.js",
+  "engines": {
+    "node": "4.2.6"
+  },
+  "scripts": {
+    "start": "node app.js production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/starkraving/pollsy.git"
+  },
+  "author": "Mike Ritchie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/starkraving/pollsy/issues"
+  },
+  "homepage": "https://github.com/starkraving/pollsy#readme",
+  "dependencies": {
+    "body-parser": "^3.9.2",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-bootstrap-service": "^1.0.0",
+    "express-session": "^1.13.0",
+    "mongodb": "^2.1.18",
+    "mongoose": "^4.5.1",
+    "pug": "^2.0.0-beta3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-develop-server": "^0.5.2"
+  }
+}

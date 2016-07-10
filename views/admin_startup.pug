@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	h2 Admin Startup
+	p Welcome! Please create your Administrative account to continue
+		form(action="/admin/create", method="post", class="container")
+			section(class="form-group row")
+				label(for="username") Username:
+				input(type="text", class="form-control", name="username", required)
+			section(class="form-group row")
+				label(for="password") Password:
+				input(type="password", class="form-control", name="password", required)
+			section(class="form-group row")
+				label(for="confirm") Confirm Password:
+				input(type="password", class="form-control", name="confirm", required)
+			button(type="submit", class="btn btn-primary") Create

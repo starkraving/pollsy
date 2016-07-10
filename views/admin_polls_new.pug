@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	h2 polls new
+	p administrative form to create a poll
+		form(action="/admin/polls/new", method="post")
+			button(type="submit") Continue
+	ul
+		li
+			a(href="/admin/polls") Cancel

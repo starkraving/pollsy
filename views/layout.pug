@@ -1,0 +1,10 @@
+doctype html
+html
+	head
+		title #{title}
+		script(type="text/javascript", src="/bootstrap/js")
+		link(type="text/css", rel="stylesheet", href="/bootstrap/css")
+	body
+		include header
+		main(class="container")
+			block content
