@@ -11,7 +11,9 @@ var auth_admin = auth('admin');
  *administrative list of polls
  */
 router.get('/polls', auth_admin, function(req, res){
-	res.render("admin_polls", {title: "polls"});
+	Poll.find().exec(function(err, results){
+		res.render("admin_polls", {title: "Polls", polls: results});
+	});
 });
 
 /**

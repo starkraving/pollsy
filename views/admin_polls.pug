@@ -1,12 +1,16 @@
 extends layout
 
 block content
-	h2 polls
-	p administrative list of polls
-	ul
-		li
-			a(href="/admin/polls/edit/:id") Edit
-		li
-			a(href="/admin/polls/toggle/:id") Toggle
-		li
+	h2 Polls
+	p Use the controls below to manage your Polls
+	ul.list-group
+		each poll in polls.length ? polls : [{question:"You have no Polls yet"}]
+			li.list-group-item= poll.question
+			if poll.hash
+				ul
+					li
+						a(href="/admin/polls/edit/#{poll.hash}") Edit
+					li
+						a(href="/admin/polls/toggle/#{poll.hash}") Toggle
+		li.list-group-item
 			a(href="/admin/polls/new") Create
