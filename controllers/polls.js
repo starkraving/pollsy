@@ -1,12 +1,19 @@
-var express = require('express');
-var router = express.Router();
+var express  = require('express');
+var router   = express.Router();
+var Poll     = require('../models/poll');
 
 
 /**
  *public list of polls
  */
 router.get('', function(req, res){
-	res.render("polls", {title: ""});
+	Poll.find({active: true}).sort('-totalCount').exec(function(err, results){
+		if ( results.length === 0 ) {
+			res.redirect('/admin');
+		} else {
+			res.render("polls", {title: ""});
+		}
+	});
 });
 
 /**

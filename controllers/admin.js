@@ -1,4 +1,5 @@
 var PollAdmin  = require('../models/polladmin');
+var Poll       = require('../models/poll');
 var express    = require('express');
 var router     = express.Router();
 var auth       = require('../auth');
@@ -55,7 +56,13 @@ router.post('/polls/new', auth_admin, function(req, res){
  *admin homepage
  */
 router.get('', auth_admin, function(req, res){
-	res.render("admin", {title: "Admin Homepage"});
+	Poll.find().exec(function(err, results){
+		if ( results.length === 0 ) {
+			res.render("admin_empty", {title: "Admin Homepage"});
+		} else {
+			res.render("admin", {title: "Admin Homepage", pollCount: results.length});
+		}
+	});
 });
 
 /**
@@ -102,7 +109,7 @@ router.post('/login', function(req, res){
  *admin log out
  */
 router.get('/logout', function(req, res){
-	
+	req.session.destroy();
 	res.redirect("/");
 });
 
