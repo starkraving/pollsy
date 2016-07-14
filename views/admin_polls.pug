@@ -5,12 +5,13 @@ block content
 	p Use the controls below to manage your Polls
 	ul.list-group
 		each poll in polls.length ? polls : [{question:"You have no Polls yet"}]
-			li.list-group-item= poll.question
-			if poll.hash
-				ul
-					li
-						a(href="/admin/polls/edit/#{poll.hash}") Edit
-					li
-						a(href="/admin/polls/toggle/#{poll.hash}") Toggle
+			- pollText = poll.question
+			if !poll.active
+				- pollText += ' (Inactive)'
+			li.list-group-item= pollText
+				if poll.hash
+					div.btn-toolbar.pull-right
+						a.btn.btn-default.btn-sm(href="/admin/polls/edit/"+poll.hash) Edit
+						a.btn.btn-default.btn-sm(href="/admin/polls/toggle/"+poll.hash)= (poll.active) ? 'Deactivate' : 'Activate'
 		li.list-group-item
 			a(href="/admin/polls/new") Create

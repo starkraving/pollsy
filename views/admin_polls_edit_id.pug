@@ -1,10 +1,25 @@
 extends layout
 
 block content
-	h2 polls edit :id
-	p administrative form to edit a poll
-		form(action="/admin/polls/edit/:id", method="post")
-			button(type="submit") Continue
-	ul
-		li
-			a(href="/admin/polls") Cancel
+	- pollQuestion = ( poll.question ) ? poll.question : ''
+	h2 Edit Poll
+	p Use the form below to edit the properties of this Poll. Note that poll counts for any existing votes  will be returned to zero.
+		form(action="/admin/polls/edit/"+id, method="post")
+			section.form-group
+				label(for="question") Poll "Question" text:
+				textarea.form-control(name="question", rows="4", cols="80", required) #{pollQuestion}
+			section.form-group
+				label(for="answer_0") Poll "Vote" text (at least 1):
+				input.form-control(type="text", name="answer[]", id="answer_0", value=(poll.answers && poll.answers.length > 0) ? poll.answers[0].text : '', required)
+			each int in [1,2,3,4,5]
+				section.form-group
+					input.form-control(type="text", name="answer[]", value=(poll.answers.length > int)?poll.answers[int].text:'')
+			section.form-group.checkbox
+				label
+					if poll.active
+						input(type="checkbox", name="active", value="1", checked)
+					else
+						input(type="checkbox", name="active", value="1")
+					span Poll is available to Users
+			button.btn.btn-primary(type="submit") Continue
+			a.btn(href="/admin/polls") Cancel

@@ -1,10 +1,21 @@
 extends layout
 
 block content
-	h2 polls new
-	p administrative form to create a poll
+	h2 New Poll
+	p Use the form below to create a new Poll
 		form(action="/admin/polls/new", method="post")
-			button(type="submit") Continue
-	ul
-		li
-			a(href="/admin/polls") Cancel
+			section.form-group
+				label(for="question") Poll "Question" text:
+				textarea.form-control(name="question", rows="4", cols="80", required)
+			section.form-group
+				label(for="answer_0") Poll "Vote" text (at least 1):
+				input.form-control(type="text", name="answer[]", id="answer_0", required)
+			each int in [1,2,3,4,5]
+				section.form-group
+					input.form-control(type="text", name="answer[]")
+			section.form-group.checkbox
+				label
+					input(type="checkbox", name="active", value="1")
+					span Poll is available to Users
+			button.btn.btn-primary(type="submit") Continue
+			a.btn(href="/admin/polls") Cancel

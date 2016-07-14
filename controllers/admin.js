@@ -20,38 +20,82 @@ router.get('/polls', auth_admin, function(req, res){
  *administrative form to edit a poll
  */
 router.get('/polls/edit/:id', auth_admin, function(req, res){
-	res.render("admin_polls_edit_id", {title: "polls edit :id"});
+	Poll.findOne({hash: req.params.id}).exec(function(err, result){
+		res.render("admin_polls_edit_id", {title: "Edit Poll", id: req.params.id, poll: result});
+	});
 });
 
 /**
  *update a poll
  */
 router.post('/polls/edit/:id', auth_admin, function(req, res){
-	
-	res.redirect("/admin/polls");
+	var question = req.body.question;
+	var answers = [];
+	var active = ( req.body.active ) ? true : false;
+	var timestamp = new Date().getTime();
+	var hash = req.params.id;
+	for ( var i in req.body['answer[]'] ) {
+		if ( req.body['answer[]'][i].length > 0 ) {
+			answers.push({count: 0, text: req.body['answer[]'][i]});
+		}
+	}
+	Poll.findOne({ hash: req.params.id }).exec(function(err, result){
+		result.timestamp = timestamp;
+		result.question = question;
+		result.answers = answers;
+		result.active = active;
+		result.totalCount = 0;
+		result.save(function(err, doc, rowsaffected){
+			res.redirect("/admin/polls");
+		});
+	});
 });
 
 /**
  *turn on or off public access to poll
  */
 router.get('/polls/toggle/:id', auth_admin, function(req, res){
-	
-	res.redirect("/admin/polls");
+	Poll.findOne({hash: req.params.id}).exec(function(err, result){
+		var active = result.active;
+		result.active = !active;
+		result.save(function(err, doc, rowsaffected){
+			res.redirect("/admin/polls");
+		});
+	});
 });
 
 /**
  *administrative form to create a poll
  */
 router.get('/polls/new', auth_admin, function(req, res){
-	res.render("admin_polls_new", {title: "polls new"});
+	res.render("admin_polls_new", {title: "New Poll"});
 });
 
 /**
  *insert a new poll
  */
 router.post('/polls/new', auth_admin, function(req, res){
-	
-	res.redirect("/admin/polls");
+	var question = req.body.question;
+	var answers = [];
+	var active = ( req.body.active ) ? true : false;
+	var timestamp = new Date().getTime();
+	var hash = timestamp.toString(36);
+	for ( var i in req.body['answer[]'] ) {
+		if ( req.body['answer[]'][i].length > 0 ) {
+			answers.push({count: 0, text: req.body['answer[]'][i]});
+		}
+	}
+	var pollData = {
+		timestamp: timestamp,
+		hash: hash,
+		question: question,
+		answers: answers,
+		active: active,
+		totalCount: 0
+	};
+	var newPoll = new Poll(pollData).save(function(err, doc, rowsaffected){
+		res.redirect("/admin/polls");
+	});
 });
 
 /**
