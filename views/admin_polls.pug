@@ -13,5 +13,6 @@ block content
 					div.btn-toolbar.pull-right
 						a.btn.btn-default.btn-sm(href="/admin/polls/edit/"+poll.hash) Edit
 						a.btn.btn-default.btn-sm(href="/admin/polls/toggle/"+poll.hash)= (poll.active) ? 'Deactivate' : 'Activate'
+						a.btn.btn-default.btn-sm(href="/admin/polls/delete/"+poll.hash) Delete
 		li.list-group-item
 			a(href="/admin/polls/new") Create

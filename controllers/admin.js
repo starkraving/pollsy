@@ -65,6 +65,17 @@ router.get('/polls/toggle/:id', auth_admin, function(req, res){
 });
 
 /**
+ *delete a poll
+ */
+router.get('/polls/delete/:id', auth_admin, function(req, res){
+	Poll.findOne({hash: req.params.id}).exec(function(err, result){
+		result.remove(function(err, doc, rowsaffected){
+			res.redirect("/admin/polls");
+		});
+	});
+});
+
+/**
  *administrative form to create a poll
  */
 router.get('/polls/new', auth_admin, function(req, res){

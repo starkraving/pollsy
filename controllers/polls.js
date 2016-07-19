@@ -11,7 +11,7 @@ router.get('', function(req, res){
 		if ( results.length === 0 ) {
 			res.redirect('/admin');
 		} else {
-			res.render("polls", {title: ""});
+			res.render("polls", {title: "Public Polls", polls: results});
 		}
 	});
 });
@@ -20,22 +20,36 @@ router.get('', function(req, res){
  *public display of poll results
  */
 router.get('/results/:id', function(req, res){
-	res.render("polls_results_id", {title: " results :id"});
+	Poll.findOne({hash: req.params.id}).exec(function(err, result){
+		res.render("polls_results_id", {title: "Poll Results: "+result.question, id: req.params.id, poll: result});
+	});
 });
 
 /**
  *public form to vote on a poll
  */
 router.get('/vote/:id', function(req, res){
-	res.render("polls_vote_id", {title: " vote :id"});
+	Poll.findOne({hash: req.params.id}).exec(function(err, result){
+		res.render("polls_vote_id", {title: "Poll: "+result.question, id: req.params.id, poll: result});
+	});
 });
 
 /**
  *update the votes in a poll
  */
 router.post('/vote/:id', function(req, res){
-	
-	res.redirect("/polls/results/:id");
+	if ( req.body.answer ) {
+		Poll.findOne({hash: req.params.id}).exec(function(err, result){
+			var intAnswer = parseInt(req.body.answer, 10);
+			if ( intAnswer < result.answers.length ) {
+				result.answers[intAnswer].count++;
+				result.totalCount++;
+				result.save(function(err, doc, rowsaffected){
+					res.redirect("/polls/results/"+req.params.id);
+				});
+			}
+		});
+	}
 });
 
 module.exports = router;

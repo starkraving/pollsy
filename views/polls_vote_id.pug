@@ -1,10 +1,12 @@
 extends layout
 
 block content
-	h2  vote :id
-	p public form to vote on a poll
-		form(action="/polls/vote/:id", method="post")
-			button(type="submit") Vote
-	ul
-		li
-			a(href="/polls") Cancel
+	h2=  "Poll: "+poll.question
+	p Select from the following options:
+		form.list-group(action="/polls/vote/"+id, method="post")
+			each answer, int in poll.answers
+				section.list-group-item.checkbox
+					input(type="radio", name="answer", value=int, id="answer_"+int, title=answer.text)
+					label(for="answer_"+int)= answer.text
+			button.btn.btn-primary(type="submit") Vote 
+			a.btn(href="/polls") Cancel

@@ -1,10 +1,11 @@
 extends layout
 
 block content
-	h2  results :id
-	p public display of poll results
-	ul
-		li
-			a(href="/polls/vote/:id") Vote
-		li
-			a(href="/polls") Back
+	h2= "Poll: "+poll.question
+	p Poll Results:
+	ul#results.list-group
+		each answer in poll.answers
+			li.list-group-item(data-poll-pct=Math.round(answer.count/poll.totalCount*100))= answer.text
+	div.button-toolbox
+		a.btn.btn-primary(href="/polls/vote/"+id) Vote
+		a.btn.btn-default(href="/polls") Back

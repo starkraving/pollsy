@@ -1,10 +1,10 @@
 extends layout
 
 block content
-	h2 
-	p public list of polls
-	ul
-		li
-			a(href="/polls/results/:id") View Results
-		li
-			a(href="/polls/vote/:id") Vote
+	h2 Public Polls
+	ul.list-group
+		each poll in polls
+			li.list-group-item
+				a(href="/polls/vote/"+poll.hash)= poll.question
+				div.btn-toolbar.pull-right
+					a.btn.btn-default.btn-sm(href="/polls/results/"+poll.hash) View Results
