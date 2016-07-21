@@ -1,4 +1,6 @@
 extends layout
+block head
+	script(type="text/javascript", src="https://platform.twitter.com/widgets.js")
 
 block content
 	h2=  "Poll: "+poll.question
@@ -8,5 +10,7 @@ block content
 				section.list-group-item.checkbox
 					input(type="radio", name="answer", value=int, id="answer_"+int, title=answer.text)
 					label(for="answer_"+int)= answer.text
+			div.pull-right
+				a.btn.btn-default.twitter-share-button(href="https://twitter.com/intent/tweet") Tweet
 			button.btn.btn-primary(type="submit") Vote 
 			a.btn(href="/polls") Cancel

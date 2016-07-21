@@ -1,4 +1,6 @@
 extends layout
+block head
+	script(type="text/javascript", src="https://platform.twitter.com/widgets.js")
 
 block content
 	h2= "Poll: "+poll.question
@@ -6,6 +8,8 @@ block content
 	ul#results.list-group
 		each answer in poll.answers
 			li.list-group-item(data-poll-pct=Math.round(answer.count/poll.totalCount*100))= answer.text
+	div.pull-right
+		a.btn.btn-default.twitter-share-button(href="https://twitter.com/intent/tweet") Tweet
 	div.button-toolbox
 		a.btn.btn-primary(href="/polls/vote/"+id) Vote
 		a.btn.btn-default(href="/polls") Back
