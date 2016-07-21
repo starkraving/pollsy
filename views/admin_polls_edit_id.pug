@@ -1,4 +1,6 @@
 extends layout
+block head
+	script(type="text/javascript", src="/public/js/adminpolls.js")
 
 block content
 	- pollQuestion = ( poll.question ) ? poll.question : ''
@@ -10,10 +12,13 @@ block content
 				textarea.form-control(name="question", rows="4", cols="80", required) #{pollQuestion}
 			section.form-group
 				label(for="answer_0") Poll "Vote" text (at least 1):
+				button.btn.btn-sm.pull-right(type="button", data-delegate="answer_add") Add More
 				input.form-control(type="text", name="answer[]", id="answer_0", value=(poll.answers && poll.answers.length > 0) ? poll.answers[0].text : '', required)
-			each int in [1,2,3,4,5]
+			- int = 1
+			while ( int < Math.max(5, poll.answers.length) )
 				section.form-group
 					input.form-control(type="text", name="answer[]", value=(poll.answers.length > int)?poll.answers[int].text:'')
+				- int++
 			section.form-group.checkbox
 				label
 					if poll.active

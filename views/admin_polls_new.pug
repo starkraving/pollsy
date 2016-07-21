@@ -1,4 +1,6 @@
 extends layout
+block head
+	script(type="text/javascript", src="/public/js/adminpolls.js")
 
 block content
 	h2 New Poll
@@ -9,6 +11,7 @@ block content
 				textarea.form-control(name="question", rows="4", cols="80", required)
 			section.form-group
 				label(for="answer_0") Poll "Vote" text (at least 1):
+				button.btn.btn-sm.pull-right(type="button", data-delegate="answer_add") Add More
 				input.form-control(type="text", name="answer[]", id="answer_0", required)
 			each int in [1,2,3,4,5]
 				section.form-group

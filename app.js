@@ -27,6 +27,7 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 // dynamically include routes (Controller)
 fs.readdirSync('./controllers').forEach(function (file) {
